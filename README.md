@@ -1,24 +1,17 @@
 # R1
 
-**TODO: Add description**
+A tiny functional language
 
-## Installation
+### Syntax example
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+Generating fibonacci numbers:
 
-  1. Add `r1` to your list of dependencies in `mix.exs`:
+```
+fn fib
+  0 -> 0
+  1 -> 1
+  n -> fib(n-1) + fib(n-2)
+end
 
-    ```elixir
-    def deps do
-      [{:r1, "~> 0.1.0"}]
-    end
-    ```
-
-  2. Ensure `r1` is started before your application:
-
-    ```elixir
-    def application do
-      [applications: [:r1]]
-    end
-    ```
-
+print fib(100)
+```
