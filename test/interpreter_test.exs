@@ -14,4 +14,8 @@ defmodule R1.InterpreterTest do
   test "multiple values" do
     assert eval({:*, 7, 2}) == 14
   end
+
+  test "divides values" do
+    assert eval({:/, 7, 2}) == 3.5
+  end
 end
