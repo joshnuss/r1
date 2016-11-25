@@ -10,4 +10,8 @@ defmodule R1.InterpreterTest do
   test "subtracts values" do
     assert eval({:-, 7, 2}) == 5
   end
+
+  test "multiple values" do
+    assert eval({:*, 7, 2}) == 14
+  end
 end
