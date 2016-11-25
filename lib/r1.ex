@@ -17,4 +17,7 @@ defmodule R1 do
     opts = [strategy: :one_for_one, name: R1.Supervisor]
     Supervisor.start_link(children, opts)
   end
+
+  def eval(ast),
+    do: R1.Interpreter.eval(ast)
 end
