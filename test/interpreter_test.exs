@@ -1,23 +1,23 @@
 defmodule R1.InterpreterTest do
   use ExUnit.Case
-  import R1.Interpreter, only: [eval: 1]
   doctest R1.Interpreter
 
-  describe "math expressions" do
+  import R1.Interpreter, only: [eval: 1]
 
-    test "adds values" do
+  describe "math expressions" do
+    test "adds literals" do
       assert eval({:+, 1, 2}) == 3
     end
 
-    test "subtracts values" do
+    test "subtracts literals" do
       assert eval({:-, 7, 2}) == 5
     end
 
-    test "multiple values" do
+    test "multiple literals" do
       assert eval({:*, 7, 2}) == 14
     end
 
-    test "divides values" do
+    test "divides literals" do
       assert eval({:/, 7, 2}) == 3.5
     end
   end
@@ -29,5 +29,60 @@ defmodule R1.InterpreterTest do
     ]
 
     assert eval(ops) == 7
+  end
+
+  describe "variables" do
+    test "declaratation" do
+      assert eval({:=, :x, 100}) == 100
+    end
+
+    test "accessing" do
+      ops = [
+        {:=, :x, 100},
+        {:ref, :x}
+      ]
+      assert eval(ops) == 100
+    end
+
+    test "updating" do
+      ops = [
+        {:=, :x, 100},
+        {:=, :x, 22},
+        {:ref, :x}
+      ]
+      assert eval(ops) == 22
+    end
+
+    test "addition" do
+      ops = [
+        {:=, :x, 100},
+        {:+, {:ref, :x}, {:ref, :x}}
+      ]
+      assert eval(ops) == 200
+    end
+
+    test "subtraction" do
+      ops = [
+        {:=, :x, 100},
+        {:-, {:ref, :x}, {:ref, :x}}
+      ]
+      assert eval(ops) == 0
+    end
+
+    test "multiplication" do
+      ops = [
+        {:=, :x, 100},
+        {:*, {:ref, :x}, {:ref, :x}}
+      ]
+      assert eval(ops) == 10000
+    end
+
+    test "division" do
+      ops = [
+        {:=, :x, 100},
+        {:/, {:ref, :x}, {:ref, :x}}
+      ]
+      assert eval(ops) == 1
+    end
   end
 end
