@@ -32,7 +32,7 @@ defmodule R1.InterpreterTest do
   end
 
   describe "variables" do
-    test "declaratation" do
+    test "declaration" do
       assert eval({:=, :x, 100}) == 100
     end
 
@@ -83,6 +83,29 @@ defmodule R1.InterpreterTest do
         {:/, {:ref, :x}, {:ref, :x}}
       ]
       assert eval(ops) == 1
+    end
+  end
+
+  describe "functions" do
+    test "declaration" do
+      assert eval({:fn, :foo, [
+         {[:a, :b], [
+           {:+, {:ref, :a}, {:ref, :b}}
+         ]}
+      ]}) == nil
+    end
+
+    test "invoking with single match" do
+      ops = [
+        {:fn, :add, [
+          {[:a, :b], [
+            {:+, {:ref, :a}, {:ref, :b}}
+          ]}
+        ]},
+        {:ref, :add, [1, 2]}
+      ]
+
+      assert eval(ops) == 3
     end
   end
 end
