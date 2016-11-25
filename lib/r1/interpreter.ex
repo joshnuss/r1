@@ -38,7 +38,12 @@ defmodule R1.Interpreter do
     do: { binding, Map.fetch!(binding, name) }
 
   defp do_eval({:ref, name, params}, binding) do
-    {args, ops} = Map.fetch!(binding, name)
+    {args, ops} = binding
+                  |> Map.fetch!(name)
+                  |> Enum.find(fn
+                      {args, _ops} ->
+                        length(args) == length(params)
+                  end)
 
     child = args |> Enum.zip(params) |> Enum.into(%{})
     {_, result } = do_eval(ops, child)
@@ -46,10 +51,8 @@ defmodule R1.Interpreter do
     {binding, result}
   end
 
-  defp do_eval({:fn, name, patterns}, binding) do
-    {binding, _val} = do_eval({:=, name, patterns}, binding)
-    {binding, nil}
-  end
+  defp do_eval({:fn, name, patterns}, binding),
+    do: {Map.put(binding, name, patterns), nil}
 
   defp do_eval(ast, binding) when is_list(ast) do
     state = {binding, nil}

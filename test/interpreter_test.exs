@@ -107,5 +107,24 @@ defmodule R1.InterpreterTest do
 
       assert eval(ops) == 3
     end
+
+    test "invoking with multiple match groups" do
+      ops = [
+        {:fn, :add, [
+          {[:a, :b], [
+            {:+, {:ref, :a}, {:ref, :b}}
+          ]},
+          {[:a], [
+            {:+, {:ref, :a}, 1}
+          ]}
+        ]},
+        {:+,
+          {:ref, :add, [1, 2]},
+          {:ref, :add, [9]}
+        }
+      ]
+
+      assert eval(ops) == 13
+    end
   end
 end
