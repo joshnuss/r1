@@ -5,29 +5,25 @@ defmodule R1.Interpreter do
   end
 
   defp do_eval({:+, a, b}, binding) do
-    {_, aval} = do_eval(a, binding)
-    {_, bval} = do_eval(b, binding)
+    {aval, bval} = extract_literals(a, b, binding)
 
     {binding, aval + bval}
   end
 
   defp do_eval({:-, a, b}, binding) do
-    {_, aval} = do_eval(a, binding)
-    {_, bval} = do_eval(b, binding)
+    {aval, bval} = extract_literals(a, b, binding)
 
     {binding, aval - bval}
   end
 
   defp do_eval({:*, a, b}, binding) do
-    {_, aval} = do_eval(a, binding)
-    {_, bval} = do_eval(b, binding)
+    {aval, bval} = extract_literals(a, b, binding)
 
     {binding, aval * bval}
   end
 
   defp do_eval({:/, a, b}, binding) do
-    {_, aval} = do_eval(a, binding)
-    {_, bval} = do_eval(b, binding)
+    {aval, bval} = extract_literals(a, b, binding)
 
     {binding, aval / bval}
   end
@@ -65,4 +61,11 @@ defmodule R1.Interpreter do
 
   defp do_eval(literal, binding),
     do: {binding, literal}
+
+  defp extract_literals(a, b, binding) do
+    {_, aval} = do_eval(a, binding)
+    {_, bval} = do_eval(b, binding)
+
+    {aval, bval}
+  end
 end
