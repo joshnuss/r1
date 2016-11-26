@@ -1,4 +1,4 @@
-defmodule R1.Interpreter do
+defmodule X1.Interpreter do
   def eval(ast) do
     {_binding, last} = do_eval(ast, %{})
     last

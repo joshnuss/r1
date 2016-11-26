@@ -1,4 +1,4 @@
-# R1
+# X1
 
 A tiny functional language
 

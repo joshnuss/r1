@@ -1,8 +1,8 @@
-defmodule R1.Mixfile do
+defmodule X1.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :r1,
+    [app: :x1,
      version: "0.1.0",
      elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
@@ -15,7 +15,7 @@ defmodule R1.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     [applications: [:logger],
-     mod: {R1, []}]
+     mod: {X1, []}]
   end
 
   # Dependencies can be Hex packages:

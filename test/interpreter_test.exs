@@ -1,8 +1,8 @@
-defmodule R1.InterpreterTest do
+defmodule X1.InterpreterTest do
   use ExUnit.Case
-  doctest R1.Interpreter
+  doctest X1.Interpreter
 
-  import R1.Interpreter, only: [eval: 1]
+  import X1.Interpreter, only: [eval: 1]
 
   describe "math expressions" do
     test "adds literals" do
